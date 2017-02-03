@@ -1,7 +1,6 @@
 from time import time
 from random import randint
 
-
 #Stack implementation
 class Stack:
     def __init__(self):
@@ -18,6 +17,7 @@ class Stack:
         return len(self.items)
 
 #Based on the Pseudo code
+#Uses Max Stack Size as Space Complexity heuristic
 def InfPath(G, V):
     colors = {v : "white" for v in G}
     S = Stack()
@@ -121,22 +121,22 @@ def genGraph(V, A):
     return G
 
 ##Examples:
-print "Examples from Assignment: "
-print "Graph: A"
-GA = {
-    1: [2, 4],
-    2: [5, 3],
-    3: [6],
-    4: [5, 7],
-    5: [1, 3, 6, 9, 8],
-    6: [9],
-    7: [5, 8],
-    8: [9],
-    9: []
-    }
-print GA
-printGraph(GA)
-testGraph(GA, True)
+# print "Examples from Assignment: "
+# print "Graph: A"
+# GA = {
+#     1: [2, 4],
+#     2: [5, 3],
+#     3: [6],
+#     4: [5, 7],
+#     5: [1, 3, 6, 9, 8],
+#     6: [9],
+#     7: [5, 8],
+#     8: [9],
+#     9: []
+#     }
+# print GA
+# printGraph(GA)
+# testGraph(GA, True)
 
 print "Graph: B"
 GB = {
@@ -151,9 +151,9 @@ GB = {
         9: []
     }
 print GB
-printGraph(GB)
-testGraph(GA, True)
-#
+# printGraph(GB)
+testGraph(GB, True)
+
 # print "Graph: C"
 # GC = {
 #     1: [2, 3, 4],
@@ -180,34 +180,36 @@ testGraph(GA, True)
 # printGraph(GD)
 # testGraph(GD, True)
 
-## Testing Impact With Large Graphs:
-import matplotlib.pyplot as plt
-from scipy import stats
-import numpy as np
-
-NCount = []
-SSizesNCount = []
-TimesNCount = []
-ACount = []
-SSizesACount = []
-TimesACount = []
-
-for i in range (21800, 21850, 5):
-    tempG = genGraph(i, 100000)
-    tempPrint = printGraph(tempG)
-    NCount.append(tempPrint[0])
-    tempResult = testGraph(tempG, False)
-    SSizesNCount.append(tempResult[0])
-    TimesNCount.append(tempResult[1])
-    print "i: " + str(i)
-    print "NCOUNT: "
-    print NCount
-    print "SSizesNCount"
-    print SSizesNCount
-    print "TimesNCount"
-    print TimesNCount
+# print "Testing Large Graph: "
+# print "Node Count: 50000 Arc Count: 1000000"
+# tempG = genGraph(50000, 1000000)
+# printGraph(tempG)
+# print InfPath(tempG, 1)[0] # run for node 1
 
 
+########################################
+## Measuring Impact With Large Graphs:
+### (note: can take multiple hours to run fully with those Node and Arc sizes depending on the machine used)
+# import matplotlib.pyplot as plt
+# from scipy import stats
+# import numpy as np
+
+# NCount = []
+# SSizesNCount = []
+# TimesNCount = []
+# ACount = []
+# SSizesACount = []
+# TimesACount = []
+
+# for i in range (0, 50000, 250):
+#     tempG = genGraph(i, 100000)
+#     tempPrint = printGraph(tempG)
+#     NCount.append(tempPrint[0])
+#     tempResult = testGraph(tempG, False)
+#     SSizesNCount.append(tempResult[0])
+#     TimesNCount.append(tempResult[1])
+#     print "i: " + str(i)
+#
 # for j in range (10000, 500000, 1000):
 #     tempG = genGraph(10000, j)
 #     tempPrint = printGraph(tempG)
@@ -216,37 +218,37 @@ for i in range (21800, 21850, 5):
 #     SSizesACount.append(tempResult[0])
 #     TimesACount.append(tempResult[1])
 #     print "j: " + str(j)
-
-######NODE # EFFECT
-print "Effect of varying Node count on Stack Size: "
-x = np.asarray(NCount)
-y = np.asarray(SSizesNCount)
-slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
-print "Slope: " + str(slope)
-print "Intercept: " + str(slope)
-print "std_err: " + str(std_err)
-
-plt.plot(NCount, SSizesNCount, 'ro')
-plt.axis([0, 50000, 0, max(SSizesNCount)+10])
-plt.xlabel('Node Count')
-plt.ylabel('Avg Stack Size')
-plt.title('Space Complexity ')
-plt.show()
-
-print "Effect of varying Node count on Time: "
-x = np.asarray(NCount)
-y = np.asarray(TimesNCount)
-slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
-print "Slope: " + str(slope)
-print "Intercept: " + str(slope)
-print "std_err: " + str(std_err)
-
-plt.plot(NCount, TimesNCount, 'bo')
-plt.axis([0, 50000, 0, max(TimesNCount)+0.001])
-plt.xlabel('Node Count')
-plt.ylabel('Avg Time')
-plt.title('Time Complexity')
-plt.show()
+#
+# ######NODE # EFFECT
+# print "Effect of varying Node count on Stack Size: "
+# x = np.asarray(NCount)
+# y = np.asarray(SSizesNCount)
+# slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+# print "Slope: " + str(slope)
+# print "Intercept: " + str(slope)
+# print "std_err: " + str(std_err)
+#
+# plt.plot(NCount, SSizesNCount, 'ro')
+# plt.axis([0, 50000, 0, max(SSizesNCount)+10])
+# plt.xlabel('Node Count')
+# plt.ylabel('Avg Stack Size')
+# plt.title('Space Complexity ')
+# plt.show()
+#
+# print "Effect of varying Node count on Time: "
+# x = np.asarray(NCount)
+# y = np.asarray(TimesNCount)
+# slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+# print "Slope: " + str(slope)
+# print "Intercept: " + str(slope)
+# print "std_err: " + str(std_err)
+#
+# plt.plot(NCount, TimesNCount, 'bo')
+# plt.axis([0, 50000, 0, max(TimesNCount)+0.001])
+# plt.xlabel('Node Count')
+# plt.ylabel('Avg Time')
+# plt.title('Time Complexity')
+# plt.show()
 
 ##### ARC # EFFECT
 # print "Effect of varying Arc count on Stack Size: "
