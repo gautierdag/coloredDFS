@@ -27,32 +27,24 @@ def InfPath(G, V):
     while not S.is_empty():
         if (S.size() > maxStackSize): maxStackSize = S.size()
         u = S.top()
-        neighbor = findNeighbor(G, u, colors)
-        if neighbor[0] == "grey":
-            # print "grey neighbor"
+
+        if len(G[u]) > 0: v = G[u][0]
+        else: v = False
+
+        if v and colors[v] == "grey":
             return [True, maxStackSize]
-        elif neighbor[0] == "white":
-            # print "white neighbor"
-            colors[neighbor[1]] = "grey"
-            S.push(neighbor[1])
+        elif v and colors[v]  == "white":
+            colors[v] = "grey"
+            S.push(v)
+        elif v and colors[v] == "black":
+            G[u].pop(0)
         else:
             colors[u] = "black"
             S.pop()
-    return [False, maxStackSize]
+            if S.is_empty(): return [False, maxStackSize]
+            else: G[S.top()].pop(0)
 
-#Finds neighbors of u which are "grey"
-#If none "grey" then find "white" neighbor
-#If none "white" then return ["black"] - done with u
-def findNeighbor(G, u, colors):
-    color = "grey"
-    for m in G[u]:
-        if colors[m] == color:
-            return ["grey", m]
-    color = "white"
-    for m in G[u]:
-        if colors[m] == color:
-            return ["white", m]
-    return ["black"]
+    return [False, maxStackSize]
 
 
 #Function to print graph attributes and layout
@@ -193,7 +185,7 @@ print InfPath(tempG, 1)[0] # run for node 1
 # import matplotlib.pyplot as plt
 # from scipy import stats
 # import numpy as np
-
+#
 # NCount = []
 # SSizesNCount = []
 # TimesNCount = []
