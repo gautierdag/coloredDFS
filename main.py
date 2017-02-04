@@ -121,22 +121,22 @@ def genGraph(V, A):
     return G
 
 ##Examples:
-# print "Examples from Assignment: "
-# print "Graph: A"
-# GA = {
-#     1: [2, 4],
-#     2: [5, 3],
-#     3: [6],
-#     4: [5, 7],
-#     5: [1, 3, 6, 9, 8],
-#     6: [9],
-#     7: [5, 8],
-#     8: [9],
-#     9: []
-#     }
-# print GA
-# printGraph(GA)
-# testGraph(GA, True)
+print "Examples from Assignment: "
+print "Graph: A"
+GA = {
+    1: [2, 4],
+    2: [5, 3],
+    3: [6],
+    4: [5, 7],
+    5: [1, 3, 6, 9, 8],
+    6: [9],
+    7: [5, 8],
+    8: [9],
+    9: []
+    }
+print GA
+printGraph(GA)
+testGraph(GA, True)
 
 print "Graph: B"
 GB = {
@@ -151,7 +151,7 @@ GB = {
         9: []
     }
 print GB
-# printGraph(GB)
+printGraph(GB)
 testGraph(GB, True)
 
 # print "Graph: C"
@@ -180,11 +180,11 @@ testGraph(GB, True)
 # printGraph(GD)
 # testGraph(GD, True)
 
-# print "Testing Large Graph: "
-# print "Node Count: 50000 Arc Count: 1000000"
-# tempG = genGraph(50000, 1000000)
-# printGraph(tempG)
-# print InfPath(tempG, 1)[0] # run for node 1
+print "Testing Large Graph: "
+print "Node Count: 50000 Arc Count: 1000000"
+tempG = genGraph(50000, 1000000)
+printGraph(tempG)
+print InfPath(tempG, 1)[0] # run for node 1
 
 
 ########################################
